@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto|Anton|Pirata+One&display=swap" rel="stylesheet">
+    <!-- Custom styles -->
+    <link rel="stylesheet" href="assets/css/style.css">
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
+    <title>Taylor Swift Trivia</title>
+</head>
+<body>
+    <div class="container">
+        <div class="row text-center">
+            <div class="col-md-12 display-1">TAYLOR SWIFT</div>
+        </div>
+        <div class="row text-center">
+            <div class="col-md-12 display-3">trivia</div>
+        </div>
+    </div>
+    <div id="start" class="container">
+        <div class="row spacer">
+            <div class="col-md-12 text-center">
+                <button type="button" class="btn btn-secondary">START</button>
+            </div>
+        </div>
+    </div>
+    <div id="game" class="container hidden">
+        <div class="row">
+            <div class="col-md-12 text-center">
+                <span id="countdown-title">Time Remaining:</span><span id="countdown">1 hr and 30 seconds</span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12 h2 text-center spacer"><span id="question"></span></div>
+        </div>
+        <div class="row">
+            <div class="col-md-12 h4 text-center answers"><span id="a"></span></div>
+        </div>
+        <div class="row">
+            <div class="col-md-12 h4 text-center answers"><span id="b"></span></div>
+        </div>
+        <div class="row">
+            <div class="col-md-12 h4 text-center answers"><span id="c"></span></div>
+        </div>
+        <div class="row">
+            <div class="col-md-12 h4 text-center answers"><span id="d"></span></div>
+        </div>
+    </div>
+
+    <!-- JavaScript -->
+    <script src="assets/javascript/app.js"></script>
+</body>
+</html>

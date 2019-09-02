@@ -1,0 +1,62 @@
+body {
+    background-image: url('../images/repBG.jpg');
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    font-family: 'Roboto', sans-serif;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.display-1 {
+    font-family: 'Anton', sans-serif;
+    color: #191919;
+}
+
+.display-3 {
+    font-family: 'Pirata One', cursive;
+    line-height: 70px;
+    padding-left: 480px;
+    transform: rotate(-10deg);
+    color: #A44A3F;
+}
+
+.hidden {
+    display: none;
+}
+
+.btn {
+    font-size: 100px;
+    font-weight: 900;
+}
+
+#game {
+    background-color: rgba(255, 255, 255, 0.5);
+    padding: 30px;
+}
+
+#countdown-title {
+    min-width: 150px;
+    height: 38px;
+    background-color: #19323C;
+    padding: 10px 20px;
+    color: #fff;
+}
+
+#countdown {
+    padding: 10px 20px;
+    background-color: #BBB8B2;
+}
+
+.spacer {
+    padding-top: 50px;
+}
+
+.answers {
+    padding-top: 10px;
+}
+
+.answers:hover {
+    color: #CC3F0C;
+}
