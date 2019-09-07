@@ -12,7 +12,8 @@ function ask (i) {
 }
 
 function checkAnswer (i, choice) {
-    num = randomNumber(1, 2);
+    // Randomize number for success/fail gifs
+    num = randomNumber(1, 5);
     
     if (choice == questions[i].correct){
         $('#question').text("Correct!");
@@ -24,8 +25,10 @@ function checkAnswer (i, choice) {
         i++;
         
         setTimeout(function(){
-            ask(i);
-        }, 5000);
+            if (i <= Object.keys(questions).length){
+                ask(i);
+            }
+        }, 4000);
 
         return i
     } else {
@@ -38,8 +41,10 @@ function checkAnswer (i, choice) {
         i++;
 
         setTimeout(function(){
-            ask(i);
-        }, 5000);
+            if (i <= Object.keys(questions).length){
+                ask(i);
+            }
+        }, 4000);
 
         return i
     }
@@ -69,14 +74,20 @@ var questions = {
 var successGifs = [
     '<img src="../assets/images/heart.gif">',
     '<img src="../assets/images/jump.gif">',
-    '<img src="../assets/images/suckit.gif">'
+    '<img src="../assets/images/suckit.gif">',
+    '<img src="../assets/images/delicate2.gif">',
+    '<img src="../assets/images/wangbt.gif">',
+    '<img src="../assets/images/taylorpark.gif">'
 ]
 
 // gifs for when a question is answered incorrectly
 var failGifs = [
     '<img src="../assets/images/delicate.gif">',
     '<img src="../assets/images/fall.gif">',
-    '<img src="../assets/images/loser.gif">'
+    '<img src="../assets/images/loser.gif">',
+    '<img src="../assets/images/blankspace.gif">',
+    '<img src="../assets/images/vogue.gif">',
+    '<img src="../assets/images/ybwm.gif">'
 ]
 
 
