@@ -12,22 +12,41 @@ function ask (i) {
 }
 
 function checkAnswer (i, choice) {
+    num = randomNumber(1, 2);
+    
     if (choice == questions[i].correct){
         $('#question').text("Correct!");
         $('#a').empty();
         $('#b').empty();
         $('#c').empty();
-        $('#d').html('<img src="../assets/images/heart.gif">');
+        $('#d').html(successGifs[num]);
 
         i++;
-        ask(i);
+        
+        setTimeout(function(){
+            ask(i);
+        }, 5000);
+
         return i
     } else {
-        console.log("incorrect answer");
+        $('#question').text("Nope!");
+        $('#a').empty();
+        $('#b').empty();
+        $('#c').empty();
+        $('#d').html(failGifs[num]);
+
+        i++;
+
+        setTimeout(function(){
+            ask(i);
+        }, 5000);
+
+        return i
     }
 }
 
 // Variables
+// Define questions, options, and correct answer
 var questions = {
     1 : {
         question : "What is Taylor's middle name?",
@@ -46,6 +65,22 @@ var questions = {
     }
 }
 
+// gifs for when a question is answered successfully
+var successGifs = [
+    '<img src="../assets/images/heart.gif">',
+    '<img src="../assets/images/jump.gif">',
+    '<img src="../assets/images/suckit.gif">'
+]
+
+// gifs for when a question is answered incorrectly
+var failGifs = [
+    '<img src="../assets/images/delicate.gif">',
+    '<img src="../assets/images/fall.gif">',
+    '<img src="../assets/images/loser.gif">'
+]
+
+
+// Initialize i
 i = 1;
 
 // Document Ready
