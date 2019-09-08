@@ -13,7 +13,7 @@ function ask (i) {
 
 function checkAnswer (i, choice, numCorrect, numIncorrect) {
     // Randomize number for success/fail gifs
-    num = randomNumber(1, 5);
+    num = randomNumber(1, 6);
     
     if (choice == questions[i].correct){
         $('#question').text("Correct!");
@@ -58,7 +58,7 @@ function checkAnswer (i, choice, numCorrect, numIncorrect) {
 
 function endGame (numCorrect, numIncorrect) {
      // Randomize number for success/fail gifs
-     num = randomNumber(1, 5);
+     num = randomNumber(1, 6);
     
     $('#question').html("Total correct: " + numCorrect + "<br>" + "Total incorrect: " + numIncorrect);
     $('#a').empty();
@@ -99,7 +99,8 @@ var successGifs = [
     '<img src="../assets/images/suckit.gif">',
     '<img src="../assets/images/delicate2.gif">',
     '<img src="../assets/images/wangbt.gif">',
-    '<img src="../assets/images/taylorpark.gif">'
+    '<img src="../assets/images/taylorpark.gif">',
+    '<img src="../assets/images/vmas.gif">'
 ]
 
 // gifs for when a question is answered incorrectly
@@ -109,7 +110,8 @@ var failGifs = [
     '<img src="../assets/images/loser.gif">',
     '<img src="../assets/images/blankspace.gif">',
     '<img src="../assets/images/vogue.gif">',
-    '<img src="../assets/images/ybwm.gif">'
+    '<img src="../assets/images/ybwm.gif">',
+    '<img src="../assets/images/kick.gif">'
 ]
 
 
