@@ -11,7 +11,7 @@ function ask (i) {
     $('#d').text(questions[i].options[3]);
 }
 
-function checkAnswer (i, choice) {
+function checkAnswer (i, choice, numCorrect, numIncorrect) {
     // Randomize number for success/fail gifs
     num = randomNumber(1, 5);
     
@@ -23,14 +23,17 @@ function checkAnswer (i, choice) {
         $('#d').html(successGifs[num]);
 
         i++;
+        numCorrect++;
         
         setTimeout(function(){
             if (i <= Object.keys(questions).length){
                 ask(i);
+            } else {
+                endGame(numCorrect, numIncorrect);
             }
         }, 4000);
 
-        return i
+        return { i : i, result : 'correct', numCorrect : numCorrect, numIncorrect : numIncorrect }
     } else {
         $('#question').text("Nope!");
         $('#a').empty();
@@ -39,14 +42,33 @@ function checkAnswer (i, choice) {
         $('#d').html(failGifs[num]);
 
         i++;
+        numIncorrect++;
 
         setTimeout(function(){
             if (i <= Object.keys(questions).length){
                 ask(i);
+            } else {
+                endGame(numCorrect, numIncorrect);
             }
         }, 4000);
 
-        return i
+        return { i : i, result : 'incorrect' , numCorrect : numCorrect, numIncorrect : numIncorrect }
+    }
+}
+
+function endGame (numCorrect, numIncorrect) {
+     // Randomize number for success/fail gifs
+     num = randomNumber(1, 5);
+    
+    $('#question').html("Total correct: " + numCorrect + "<br>" + "Total incorrect: " + numIncorrect);
+    $('#a').empty();
+    $('#b').empty();
+    $('#c').empty();
+    
+    if (numCorrect > numIncorrect) {
+        $('#d').html(successGifs[num]);
+    } else {
+        $('#d').html(failGifs[num]);
     }
 }
 
@@ -55,12 +77,12 @@ function checkAnswer (i, choice) {
 var questions = {
     1 : {
         question : "What is Taylor's middle name?",
-        options : ["Pat", "Alison", "Melissa", "Britney"],
+        options : ["Amanda", "Alison", "Melissa", "Elizabeth"],
         correct : 'b'
     },
     2 : {
         question : "What was the name of Taylor's 3rd album?",
-        options : ["Taylor Swift", "Speak Now", "Red", "reputation"],
+        options : ["Lover", "Speak Now", "Red", "reputation"],
         correct : 'c'
     },
     3 : {
@@ -91,8 +113,11 @@ var failGifs = [
 ]
 
 
-// Initialize i
-i = 1;
+// Initialize
+var i = 1;
+var numCorrect = 0;
+var numIncorrect = 0;
+
 
 // Document Ready
 $(document).ready(function () {
@@ -105,12 +130,16 @@ $(document).ready(function () {
         $('#game').removeClass("hidden");
     });
 
+    // Ask the first question
     ask(i);
 
-    // 
+    // When an answer is clicked, check to see if it was correct, add to tally
     $('.answers').on("click", function() {
         var choice = $(this).attr('id');
-        i = checkAnswer(i, choice);
+        check = checkAnswer(i, choice, numCorrect, numIncorrect);
+        i = check.i;
+        numCorrect = check.numCorrect;
+        numIncorrect = check.numIncorrect;
     });
 
 });
