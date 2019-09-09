@@ -9,12 +9,40 @@ function ask (i) {
     $('#b').text(questions[i].options[1]);
     $('#c').text(questions[i].options[2]);
     $('#d').text(questions[i].options[3]);
+
+    startTimer();
+}
+
+function startTimer () {
+    increment = setInterval(decrement, 1000);
+}
+
+function decrement () {
+    seconds--;
+    $('#countdown').text(seconds + " seconds");
+    if ( seconds <= 0 ) {
+        resetTimer();
+        unanswered++;
+        console.log(seconds);
+        i++;
+        if (i <= Object.keys(questions).length){
+            ask(i);
+        } else {
+            endGame(numCorrect, numIncorrect, unanswered);
+        }
+    }
+}
+
+function resetTimer () {
+    seconds = 10;
+    clearInterval(increment);
+    $('#countdown').text(seconds + " seconds");
 }
 
 function checkAnswer (i, choice, numCorrect, numIncorrect) {
     // Randomize number for success/fail gifs
     num = randomNumber(1, 6);
-    
+    resetTimer();
     if (choice == questions[i].correct){
         $('#question').text("Correct!");
         $('#a').empty();
@@ -56,11 +84,12 @@ function checkAnswer (i, choice, numCorrect, numIncorrect) {
     }
 }
 
-function endGame (numCorrect, numIncorrect) {
+function endGame (numCorrect, numIncorrect, unanswered) {
      // Randomize number for success/fail gifs
      num = randomNumber(1, 6);
     
-    $('#question').html("Total correct: " + numCorrect + "<br>" + "Total incorrect: " + numIncorrect);
+    $('#countdown-container').addClass("hidden");
+    $('#question').html("Total correct: " + numCorrect + "<br>" + "Total incorrect: " + numIncorrect + "<br>" + "Total unanswered: " + unanswered);
     $('#a').empty();
     $('#b').empty();
     $('#c').empty();
@@ -119,6 +148,9 @@ var failGifs = [
 var i = 1;
 var numCorrect = 0;
 var numIncorrect = 0;
+var unanswered = 0;
+var seconds = 10;
+var increment;
 
 
 // Document Ready
@@ -130,10 +162,11 @@ $(document).ready(function () {
         $('#start').addClass("hidden");
         // Show the game container
         $('#game').removeClass("hidden");
+        // Ask the first question
+        ask(i, unanswered);
+        // // Start the timer
+        // timer(i, unanswered);
     });
-
-    // Ask the first question
-    ask(i);
 
     // When an answer is clicked, check to see if it was correct, add to tally
     $('.answers').on("click", function() {
