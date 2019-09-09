@@ -1,8 +1,9 @@
-// Functions
+// FUNCTIONS //
 function randomNumber (min, max) {
     return Math.floor(Math.random() * (max - min + 1) ) + min;
 }
 
+// Empty unneeded divs, load question/answer divs 
 function ask (i) {
     $('#result').empty();
     $('#gifs').empty();
@@ -12,6 +13,7 @@ function ask (i) {
     $('#c').text(questions[i].options[2]);
     $('#d').text(questions[i].options[3]);
 
+    // Begin the timer
     startTimer();
 }
 
@@ -20,13 +22,16 @@ function startTimer () {
 }
 
 function decrement () {
+    // Subtract from seconds, every 1 second
     seconds--;
+    // Display the timer 
     $('#countdown').text(seconds + " seconds");
-    if ( seconds <= 0 ) {
+    // When seconds equals 0, reset the timer, increment unanswered questions and i
+    if ( seconds === 0 ) {
         resetTimer();
         unanswered++;
-        console.log(seconds);
         i++;
+        // If i is less than the number of questions, ask another, otherwise end the game
         if (i <= Object.keys(questions).length){
             ask(i);
         } else {
@@ -44,8 +49,11 @@ function resetTimer () {
 function checkAnswer (i, choice, numCorrect, numIncorrect, unanswered) {
     // Randomize number for success/fail gifs
     num = randomNumber(1, 6);
+    // Reset timer while answer is being checked
     resetTimer();
+    // If the user's choice and the correct answer match:
     if (choice == questions[i].correct){
+        // Empty all of the question/answer divs, display the result and a success gif
         $('#question').empty();
         $('#a').empty();
         $('#b').empty();
@@ -54,9 +62,11 @@ function checkAnswer (i, choice, numCorrect, numIncorrect, unanswered) {
         $('#gifs').html(successGifs[num]);
         $('#result').text("Correct!");
 
+        // Increment i and the number of correct answers
         i++;
         numCorrect++;
         
+        // Allow the Gif, etc. to be displayed for 4 seconds, then ask a new question or end the game if there are no questions left
         setTimeout(function(){
             if (i <= Object.keys(questions).length){
                 ask(i);
@@ -67,6 +77,7 @@ function checkAnswer (i, choice, numCorrect, numIncorrect, unanswered) {
 
         return { i : i, result : 'correct', numCorrect : numCorrect, numIncorrect : numIncorrect }
     } else {
+        // Answer was incorrect, empty all of the question/answer divs, display the result and a failure gif
         $('#question').empty();
         $('#a').empty();
         $('#b').empty();
@@ -75,10 +86,11 @@ function checkAnswer (i, choice, numCorrect, numIncorrect, unanswered) {
         $('#gifs').html(failGifs[num]);
         $('#result').text("Nope!");
 
-
+        // Increment i and the number of incorrect answers
         i++;
         numIncorrect++;
 
+        // Allow the Gif, etc. to be displayed for 4 seconds, then ask a new question or end the game if there are no questions left
         setTimeout(function(){
             if (i <= Object.keys(questions).length){
                 ask(i);
@@ -95,24 +107,28 @@ function endGame (numCorrect, numIncorrect, unanswered) {
      // Randomize number for success/fail gifs
      num = randomNumber(1, 6);
     
+     // Hide countdown, empty all question/answer divs
     $('#countdown-container').addClass("hidden");
     $('#question').empty();
     $('#a').empty();
     $('#b').empty();
     $('#c').empty();
     $('#d').empty();
-    $('#restartbtn').removeClass("hidden");
+    // Unhide the restart button and display the final result
     $('#result').html("Total correct: " + numCorrect + "<br>" + "Total incorrect: " + numIncorrect + "<br>" + "Total unanswered: " + unanswered);
     $('#restart').removeClass("hidden");
 
+    // If the number of correct answers is higher than the unanswered and incorrect, display a successful gif
     if (numCorrect > (numIncorrect + unanswered)) {
         $('#gifs').html(successGifs[num]);
     } else {
+        // Otherwise, display a failure gif
         $('#gifs').html(failGifs[num]);
     }
 }
 
-// Variables
+// VARIABLES //
+
 // Define questions, options, and correct answer
 var questions = {
     1 : {
@@ -147,7 +163,7 @@ var questions = {
     }
 }
 
-// gifs for when a question is answered successfully
+// Gifs for when a question is answered successfully
 var successGifs = [
     '<img src="../assets/images/heart.gif">',
     '<img src="../assets/images/jump.gif">',
@@ -158,7 +174,7 @@ var successGifs = [
     '<img src="../assets/images/vmas.gif">'
 ]
 
-// gifs for when a question is answered incorrectly
+// Gifs for when a question is answered incorrectly
 var failGifs = [
     '<img src="../assets/images/delicate.gif">',
     '<img src="../assets/images/fall.gif">',
@@ -170,7 +186,7 @@ var failGifs = [
 ]
 
 
-// Initialize
+// Initialize global variables
 var i = 1;
 var numCorrect = 0;
 var numIncorrect = 0;
@@ -201,6 +217,7 @@ $(document).ready(function () {
         numIncorrect = check.numIncorrect;
     });
 
+    // Restart button is clicked at the end of the game
     $('#restartbtn').on("click", function() {
         // Reset all variables
         i = 1;
