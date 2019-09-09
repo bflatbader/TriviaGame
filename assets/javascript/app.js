@@ -165,24 +165,24 @@ var questions = {
 
 // Gifs for when a question is answered successfully
 var successGifs = [
-    '<img src="../assets/images/heart.gif">',
-    '<img src="../assets/images/jump.gif">',
-    '<img src="../assets/images/suckit.gif">',
-    '<img src="../assets/images/delicate2.gif">',
-    '<img src="../assets/images/wangbt.gif">',
-    '<img src="../assets/images/taylorpark.gif">',
-    '<img src="../assets/images/vmas.gif">'
+    '<img src="assets/images/heart.gif">',
+    '<img src="assets/images/jump.gif">',
+    '<img src="assets/images/suckit.gif">',
+    '<img src="assets/images/delicate2.gif">',
+    '<img src="assets/images/wangbt.gif">',
+    '<img src="assets/images/taylorpark.gif">',
+    '<img src="assets/images/vmas.gif">'
 ]
 
 // Gifs for when a question is answered incorrectly
 var failGifs = [
-    '<img src="../assets/images/delicate.gif">',
-    '<img src="../assets/images/fall.gif">',
-    '<img src="../assets/images/loser.gif">',
-    '<img src="../assets/images/blankspace.gif">',
-    '<img src="../assets/images/vogue.gif">',
-    '<img src="../assets/images/ybwm.gif">',
-    '<img src="../assets/images/kick.gif">'
+    '<img src="assets/images/delicate.gif">',
+    '<img src="assets/images/fall.gif">',
+    '<img src="assets/images/loser.gif">',
+    '<img src="assets/images/blankspace.gif">',
+    '<img src="assets/images/vogue.gif">',
+    '<img src="assets/images/ybwm.gif">',
+    '<img src="assets/images/kick.gif">'
 ]
 
 
