@@ -12,6 +12,8 @@
     <link rel="stylesheet" href="assets/css/style.css">
     <!-- jQuery -->
     <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
+    <!-- Font Awesome -->
+    <script src="https://kit.fontawesome.com/eeaaa00cac.js"></script>
     <title>Taylor Swift Trivia</title>
 </head>
 <body>
@@ -26,7 +28,7 @@
     <div id="start" class="container">
         <div class="row spacer">
             <div class="col-md-12 text-center">
-                <button type="button" class="btn btn-secondary">START</button>
+                <button type="button" id="startbtn" class="btn btn-secondary">START</button>
             </div>
         </div>
     </div>
@@ -37,7 +39,15 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-md-12 h2 text-center spacer"><span id="question"></span></div>
+            <div id="result" class="col-md-12 h2 text-center spacer"></div>
+        </div>
+        <div class="row">
+            <div id="restart" class="col-md-12 h4 text-center spacer hidden">
+                <button type="button" id="restartbtn" class="btn btn-secondary"><i class="fas fa-redo"></i>&nbsp;RESTART</button>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12 h2 text-center"><span id="question"></span></div>
         </div>
         <div class="row">
             <div id="a" class="col-md-12 h4 text-center answers"></div>
@@ -50,6 +60,9 @@
         </div>
         <div class="row">
             <div id="d" class="col-md-12 h4 text-center answers"></div>
+        </div>
+        <div class="row">
+            <div id="gifs" class="col-md-12 text-center"></div>
         </div>
     </div>
 

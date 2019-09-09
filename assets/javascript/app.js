@@ -4,6 +4,8 @@ function randomNumber (min, max) {
 }
 
 function ask (i) {
+    $('#result').empty();
+    $('#gifs').empty();
     $('#question').text(questions[i].question);
     $('#a').text(questions[i].options[0]);
     $('#b').text(questions[i].options[1]);
@@ -44,11 +46,13 @@ function checkAnswer (i, choice, numCorrect, numIncorrect, unanswered) {
     num = randomNumber(1, 6);
     resetTimer();
     if (choice == questions[i].correct){
-        $('#question').text("Correct!");
+        $('#question').empty();
         $('#a').empty();
         $('#b').empty();
         $('#c').empty();
-        $('#d').html(successGifs[num]);
+        $('#d').empty();
+        $('#gifs').html(successGifs[num]);
+        $('#result').text("Correct!");
 
         i++;
         numCorrect++;
@@ -63,11 +67,14 @@ function checkAnswer (i, choice, numCorrect, numIncorrect, unanswered) {
 
         return { i : i, result : 'correct', numCorrect : numCorrect, numIncorrect : numIncorrect }
     } else {
-        $('#question').text("Nope!");
+        $('#question').empty();
         $('#a').empty();
         $('#b').empty();
         $('#c').empty();
-        $('#d').html(failGifs[num]);
+        $('#d').empty();
+        $('#gifs').html(failGifs[num]);
+        $('#result').text("Nope!");
+
 
         i++;
         numIncorrect++;
@@ -89,15 +96,19 @@ function endGame (numCorrect, numIncorrect, unanswered) {
      num = randomNumber(1, 6);
     
     $('#countdown-container').addClass("hidden");
-    $('#question').html("Total correct: " + numCorrect + "<br>" + "Total incorrect: " + numIncorrect + "<br>" + "Total unanswered: " + unanswered);
+    $('#question').empty();
     $('#a').empty();
     $('#b').empty();
     $('#c').empty();
-    
+    $('#d').empty();
+    $('#restartbtn').removeClass("hidden");
+    $('#result').html("Total correct: " + numCorrect + "<br>" + "Total incorrect: " + numIncorrect + "<br>" + "Total unanswered: " + unanswered);
+    $('#restart').removeClass("hidden");
+
     if (numCorrect > (numIncorrect + unanswered)) {
-        $('#d').html(successGifs[num]);
+        $('#gifs').html(successGifs[num]);
     } else {
-        $('#d').html(failGifs[num]);
+        $('#gifs').html(failGifs[num]);
     }
 }
 
@@ -172,7 +183,7 @@ var increment;
 $(document).ready(function () {
 
     // On start button click, hide the button and then unhide the game container
-    $('button').on("click", function() {
+    $('#startbtn').on("click", function() {
         // Hide the Start button
         $('#start').addClass("hidden");
         // Show the game container
@@ -188,6 +199,25 @@ $(document).ready(function () {
         i = check.i;
         numCorrect = check.numCorrect;
         numIncorrect = check.numIncorrect;
+    });
+
+    $('#restartbtn').on("click", function() {
+        // Reset all variables
+        i = 1;
+        numCorrect = 0;
+        numIncorrect = 0;
+        unanswered = 0;
+        seconds = 10;
+        increment;
+
+        // Re-hide restart div
+        $('#restart').addClass("hidden");
+
+        // Unhide the timer
+        $('#countdown-container').removeClass("hidden");
+
+         // Ask the first question
+         ask(i, unanswered);
     });
 
 });
