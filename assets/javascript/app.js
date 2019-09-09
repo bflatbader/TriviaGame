@@ -39,7 +39,7 @@ function resetTimer () {
     $('#countdown').text(seconds + " seconds");
 }
 
-function checkAnswer (i, choice, numCorrect, numIncorrect) {
+function checkAnswer (i, choice, numCorrect, numIncorrect, unanswered) {
     // Randomize number for success/fail gifs
     num = randomNumber(1, 6);
     resetTimer();
@@ -57,7 +57,7 @@ function checkAnswer (i, choice, numCorrect, numIncorrect) {
             if (i <= Object.keys(questions).length){
                 ask(i);
             } else {
-                endGame(numCorrect, numIncorrect);
+                endGame(numCorrect, numIncorrect, unanswered);
             }
         }, 4000);
 
@@ -76,7 +76,7 @@ function checkAnswer (i, choice, numCorrect, numIncorrect) {
             if (i <= Object.keys(questions).length){
                 ask(i);
             } else {
-                endGame(numCorrect, numIncorrect);
+                endGame(numCorrect, numIncorrect, unanswered);
             }
         }, 4000);
 
@@ -94,7 +94,7 @@ function endGame (numCorrect, numIncorrect, unanswered) {
     $('#b').empty();
     $('#c').empty();
     
-    if (numCorrect > numIncorrect) {
+    if (numCorrect > (numIncorrect + unanswered)) {
         $('#d').html(successGifs[num]);
     } else {
         $('#d').html(failGifs[num]);
@@ -115,8 +115,23 @@ var questions = {
         correct : 'c'
     },
     3 : {
+        question : "Taylor has lived in which environment?",
+        options : ["Geodesic dome home", "Missle silo ", "Christmas tree farm", "Lighthouse"],
+        correct : 'c'   
+    },
+    4 : {
         question : "Which of the following is the name of one of Taylor's cats?",
         options : ["Patches", "Muffin", "Fluffy", "Meredith"],
+        correct : 'd'   
+    },
+    5 : {
+        question : "Taylor was the spokesperson for what NHL team?",
+        options : ["Predators", "Penguins", "Flyers", "Lightning"],
+        correct : 'a'   
+    },
+    6 : {
+        question : "What year was Taylor born?",
+        options : ["1986", "1999", "1991", "1989"],
         correct : 'd'   
     }
 }
@@ -164,14 +179,12 @@ $(document).ready(function () {
         $('#game').removeClass("hidden");
         // Ask the first question
         ask(i, unanswered);
-        // // Start the timer
-        // timer(i, unanswered);
     });
 
     // When an answer is clicked, check to see if it was correct, add to tally
     $('.answers').on("click", function() {
         var choice = $(this).attr('id');
-        check = checkAnswer(i, choice, numCorrect, numIncorrect);
+        check = checkAnswer(i, choice, numCorrect, numIncorrect, unanswered);
         i = check.i;
         numCorrect = check.numCorrect;
         numIncorrect = check.numIncorrect;
