@@ -3,8 +3,18 @@ function randomNumber (min, max) {
     return Math.floor(Math.random() * (max - min + 1) ) + min;
 }
 
+// Empty question and answer divs
+function emptyQandA () {
+    $('#question').empty();
+    $('#a').empty();
+    $('#b').empty();
+    $('#c').empty();
+    $('#d').empty();
+}
+
 // Empty unneeded divs, load question/answer divs 
 function ask (i) {
+    $('#response').empty();
     $('#result').empty();
     $('#gifs').empty();
     $('#question').text(questions[i].question);
@@ -26,17 +36,20 @@ function decrement () {
     seconds--;
     // Display the timer 
     $('#countdown').text(seconds + " seconds");
-    // When seconds equals 0, reset the timer, increment unanswered questions and i
+    // When seconds equals 0, reset the timer, display the correct answer, and increment unanswered questions and i
     if ( seconds === 0 ) {
         resetTimer();
+        unansweredQ();
         unanswered++;
         i++;
-        // If i is less than the number of questions, ask another, otherwise end the game
-        if (i <= Object.keys(questions).length){
-            ask(i);
-        } else {
-            endGame(numCorrect, numIncorrect, unanswered);
-        }
+        // After 5 seconds, if i is less than the number of questions, ask another, otherwise end the game
+        setTimeout(function(){ 
+            if (i <= Object.keys(questions).length){
+                ask(i);
+            } else {
+                endGame(numCorrect, numIncorrect, unanswered);
+            }
+        }, 5000);
     }
 }
 
@@ -44,6 +57,18 @@ function resetTimer () {
     seconds = 10;
     clearInterval(increment);
     $('#countdown').text(seconds + " seconds");
+}
+
+function unansweredQ () {
+    console.log("Unanswered question")
+    // Randomize number for success/fail gifs
+    num = randomNumber(1, 6);
+    // Empty the question and answer divs
+    emptyQandA();
+    // Display a failure gif and the correct response
+    $('#gifs').html(failGifs[num]);
+    $('#result').text("You didn't answer the question!");
+    $('#response').text(questions[i].incorrectResponse);
 }
 
 function checkAnswer (i, choice, numCorrect, numIncorrect, unanswered) {
@@ -54,11 +79,7 @@ function checkAnswer (i, choice, numCorrect, numIncorrect, unanswered) {
     // If the user's choice and the correct answer match:
     if (choice == questions[i].correct){
         // Empty all of the question/answer divs, display the result and a success gif
-        $('#question').empty();
-        $('#a').empty();
-        $('#b').empty();
-        $('#c').empty();
-        $('#d').empty();
+        emptyQandA();
         $('#gifs').html(successGifs[num]);
         $('#result').text("Correct!");
 
@@ -78,13 +99,10 @@ function checkAnswer (i, choice, numCorrect, numIncorrect, unanswered) {
         return { i : i, result : 'correct', numCorrect : numCorrect, numIncorrect : numIncorrect }
     } else {
         // Answer was incorrect, empty all of the question/answer divs, display the result and a failure gif
-        $('#question').empty();
-        $('#a').empty();
-        $('#b').empty();
-        $('#c').empty();
-        $('#d').empty();
+        emptyQandA();
         $('#gifs').html(failGifs[num]);
         $('#result').text("Nope!");
+        $('#response').text(questions[i].incorrectResponse);
 
         // Increment i and the number of incorrect answers
         i++;
@@ -109,11 +127,8 @@ function endGame (numCorrect, numIncorrect, unanswered) {
     
      // Hide countdown, empty all question/answer divs
     $('#countdown-container').addClass("hidden");
-    $('#question').empty();
-    $('#a').empty();
-    $('#b').empty();
-    $('#c').empty();
-    $('#d').empty();
+    emptyQandA();
+    $('#response').empty();
     // Unhide the restart button and display the final result
     $('#result').html("Total correct: " + numCorrect + "<br>" + "Total incorrect: " + numIncorrect + "<br>" + "Total unanswered: " + unanswered);
     $('#restart').removeClass("hidden");
@@ -134,32 +149,38 @@ var questions = {
     1 : {
         question : "What is Taylor's middle name?",
         options : ["Amanda", "Alison", "Melissa", "Elizabeth"],
-        correct : 'b'
+        correct : 'b',
+        incorrectResponse: "Taylor's middle name is Alison."
     },
     2 : {
         question : "What was the name of Taylor's 3rd album?",
         options : ["Lover", "Speak Now", "Red", "reputation"],
-        correct : 'c'
+        correct : 'c',
+        incorrectResponse: "Red is the name of Taylor's 3rd album."
     },
     3 : {
         question : "Taylor has lived in which environment?",
         options : ["Geodesic dome home", "Missle silo ", "Christmas tree farm", "Lighthouse"],
-        correct : 'c'   
+        correct : 'c',
+        incorrectResponse: "Taylor grew up on a Christmas tree farm in Wyomissing, PA."  
     },
     4 : {
         question : "Which of the following is the name of one of Taylor's cats?",
         options : ["Patches", "Muffin", "Fluffy", "Meredith"],
-        correct : 'd'   
+        correct : 'd',
+        incorrectResponse: "Meredith is the name of Taylor's 1st cat."   
     },
     5 : {
         question : "Taylor was the spokesperson for what NHL team?",
         options : ["Predators", "Penguins", "Flyers", "Lightning"],
-        correct : 'a'   
+        correct : 'a',
+        incorrectResponse: "Taylor was a spokesperson for the Nashville Predators."   
     },
     6 : {
         question : "What year was Taylor born?",
         options : ["1986", "1999", "1991", "1989"],
-        correct : 'd'   
+        correct : 'd',
+        incorrectResponse: "Taylor was born in 1989."   
     }
 }
 
